@@ -1,0 +1,60 @@
+#include <cmath>
+#include <vector>
+#include <iostream>
+#include <string>
+using namespace std;
+
+class LP{
+    public:
+    
+        vector<double> cash_flows;
+        vector<double> times;
+        double r;
+    
+        LP(); 
+    
+        double PV( 
+                vector<double> cash_amounts,
+                vector<double> cash_times,
+                double r);
+};
+
+LP :: LP(){
+    
+    cash_flows.push_back(-100.0);
+    cash_flows.push_back(75);
+    cash_flows.push_back(75);
+    
+    times.push_back(0.0);
+    times.push_back(1.0);
+    times.push_back(2.0);
+    
+    r = .1;
+    
+}
+    
+
+
+double LP ::  PV(       vector<double> cash_amounts,
+                        vector<double> cash_times,
+                        double r){
+                    
+    double PV = 0.0;
+    
+    for(int t = 0;t<cash_times.size(); t++){
+        
+        PV += cash_amounts[t]/pow((1.0+r),cash_times[t]);
+    }
+    return PV; 
+}
+    
+    
+    
+    
+int main()
+{   
+    LP investment; 
+    double presentvalue = investment.PV(investment.cash_flows,investment.times,investment.r);
+    cout<<presentvalue;
+    return 0;
+}
